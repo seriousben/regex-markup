@@ -9,3 +9,9 @@ POTFILES
 config*
 regex-markup.spec
 stamp-h1
+*.o
+src/remark
+src/cacheline
+lib/alloca.h
+lib/libgnu.a
+src/common/lib_common.a

@@ -45,7 +45,9 @@ build() {
   # BUILD HERE
   #
   ./configure --prefix=/usr
-  make install
+
+  msg "configured!"
+  make
 }
 
 package() {
