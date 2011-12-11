@@ -1,0 +1,17 @@
+Source: regex-markup
+Section: utils
+Priority: optional
+Maintainer: Oskar Liljeblad <oskar@osk.mine.nu>
+Build-Depends: cdbs, debhelper (>> 4.1.0)
+Standards-Version: 3.6.1.1
+
+Package: regex-markup
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Highlight text using regular expressions (color syslogs etc)
+ Regex-markup performs regular expression-based text markup according
+ to used-defined rules. This can be used to color syslog files as well
+ as the output of programs such as ping, traceroute, gcc etc. The
+ hierarchal rules-format is simple to understand, yet very powerful.
+ Regex-markup is written entirely in C, and uses POSIX regular
+ expressions to do much of its work.

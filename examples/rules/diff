@@ -1,0 +1,37 @@
+# This file was submitted by James M. Corey. Thanks!
+
+include "common"
+
+# The following works especially well for recursive directory compares in
+# diff (it has been tested with gnu diffutils version 2.7 and 2.7.2 on
+# a variety of platforms, as well as several vendor supplied diff commands).
+# It works in non-recursive mode as well, of course.
+
+/.*/ default
+
+/^(diff)( *--?[[:alnum:]]+)* *([^-][^[:space:]]*) ([^[:space:]]*)$/ {
+  default
+  1 bluebg
+  2 default
+  3 green
+  4 red
+  break         # this is merely to skip the matches below
+}
+ 
+/^</ green
+
+/^>/ red
+
+/^([,0-9]*)[a-z]([,0-9]*)$/ {
+  blue
+  /[a-z]/yellow
+}
+ 
+/^---$/ blue
+
+/^(Only in) ([^[:space:]]*): ([^[:space:]]*)$/ {
+  default
+  1 bluebg
+  2 cyan
+  3 yellow
+}

@@ -1,0 +1,41 @@
+%define package @PACKAGE@
+%define version @VERSION@
+%define release 1
+
+Summary:        Regular expression based color highlighting filter
+Name:           %{package}
+Version:        %{version}
+Release:        %{release}
+License:	GPL
+Group:          Utilities/Text
+Source:		http://savannah.nongnu.org/download/%{package}/%{package}-%{version}.tar.gz
+URL:		http://www.nongnu.org/%{package}
+Packager:	Oskar Liljeblad <oskar@osk.mine.nu>
+Vendor:		Oskar Liljeblad <oskar@osk.mine.nu>
+BuildRoot:      %{_tmppath}/%{package}-%{version}-%{release}-root
+
+%description
+Regex-markup performs regular expression-based text markup according
+to used-defined rules. This can be used to color syslog files as well
+as the output of programs such as ping, traceroute, gcc etc. The
+hierarchal rules-format is simple to understand, yet very powerful.
+Regex-markup is written entirely in C, and uses POSIX regular
+expressions to do much of its work.
+
+%prep
+%setup -q
+
+%build
+./configure --prefix=%{_prefix}
+make
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make DESTDIR=$RPM_BUILD_ROOT install
+
+%files
+%defattr(-,root,root)
+%doc README AUTHORS ChangeLog COPYING NEWS TODO
+%{_prefix}/bin/*
+%{_prefix}/man/man1/*
+%{_prefix}/share/%{package}/*

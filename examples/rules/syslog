@@ -1,0 +1,21 @@
+# Simple rules to highlight syslogs
+
+include "common"
+
+style time { bluebg white }
+
+/^(... .. )(..:..:..)( [^ ]*) (.*)$/ {
+  1 s/^.*$//
+  2 time
+  3 s/^.*$//
+  4 {
+    s/^\/usr\/sbin\/(.*)/$1/i
+    s/^modprobe: modprobe: /modprobe: /
+    /^(oidentd|cron)(\[[0-9]+\])/ 2 s/.*//
+
+    /^([^\.][^:]+):/ {
+      1 bold
+      /\[([0-9]+)\]/ 1 plain
+    }
+  }
+}

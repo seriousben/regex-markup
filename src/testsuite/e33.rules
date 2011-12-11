@@ -1,0 +1,8 @@
+style red { pre "[" post "]" }
+style green { pre "(" post ")" }
+style blue { pre "{" post "}" }
+
+
+/foo/ red
+/ob/ green
+/bar/ blue

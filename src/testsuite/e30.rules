@@ -1,0 +1,6 @@
+style blue { pre "{" post "}" }
+
+/^(.)(.)/ {
+  1 s/^.*$//
+  2 blue
+}

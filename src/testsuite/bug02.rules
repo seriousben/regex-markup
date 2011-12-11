@@ -1,0 +1,7 @@
+style plain	{ pre "\E[0m"  post "\E[0m"  }
+style bold      { pre "\E[1m"  post "\E[22m" }
+
+/(.*)/ {
+  1 bold
+  /\[([0-9]+)\]/ 1 plain
+}

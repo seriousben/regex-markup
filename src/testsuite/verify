@@ -1,0 +1,35 @@
+#!/bin/bash
+
+REMARK="../remark"
+if [ ! -e $REMARK ]; then REMARK="remark"; fi
+
+if [ "$1" = "-q" ]; then
+  COMPARE="cmp -s"
+  quiet=1
+  shift
+else
+  COMPARE="diff -u -"
+#  quiet=0
+  quiet=1
+fi
+
+rules="$1"
+base="${rules:0:${#rules}-6}"
+
+opts="$base.opts"
+in="$base.in"
+out="$base.out"
+
+if [ -e $opts ]; then
+  opts=`cat "$opts"`
+else
+  opts=""
+fi
+
+CHECKEROPTS="--quiet $CHECKEROPTS" $REMARK $opts $rules <$in | $COMPARE $out
+rc="$?"
+if [ "$quiet" = "0" ]; then
+  [ "$rc" = "0" ] && echo "ok"
+  [ "$rc" != "0" ] && echo "FAILED"
+fi
+exit $rc

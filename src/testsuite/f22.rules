@@ -1,0 +1,9 @@
+style s0 { pre "<" post ">" }
+style s1 { pre "(" post ")" }
+
+/0a/ s0
+/tq/ { s0 s1 }
+
+/q()r/ 1 s0
+/l()a/ 1 { s0 s1 }
+

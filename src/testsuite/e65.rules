@@ -1,0 +1,15 @@
+# Test case 4a
+
+style s0 { pre "[" post "]" }
+style s1 { pre "<" post ">" }
+style s2 { pre "(" post ")" }
+style s3 { pre "{" post "}" }
+
+/ab/ s0
+/ab/ s1
+/ba/ s2
+
+/at/ s0
+/at/ s1
+/at/ s3
+/ta/ s2

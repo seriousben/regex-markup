@@ -1,0 +1,4 @@
+style s1 { pre "<" post ">" }
+
+s1
+s/.*//

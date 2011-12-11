@@ -1,0 +1,11 @@
+style s0 { pre "<" post ">" }
+style s1 { pre "(" post ")" }
+style s2 { pre "{" post "}" }
+
+/pha()/ 1 s0
+/pha()/ 1 s1
+/alpha/ s2
+
+/ta()/ 1 s0
+/beta/ s1
+/beta/ s2

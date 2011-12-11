@@ -1,0 +1,2 @@
+/(foo)/ s/foo/$$/
+/(bar)/ s/bar/$/

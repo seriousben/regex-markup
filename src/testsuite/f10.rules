@@ -1,0 +1,7 @@
+style s0 { pre "<" post ">" }
+style s1 { pre "(" post ")" }
+
+/(..):(..):(..) (.*)/ {
+  1,2,3 s0
+  4 /xmms/,/kernel/ s1
+}

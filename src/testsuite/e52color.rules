@@ -1,0 +1,7 @@
+style green   { pre "\E[37;42m" post "\E[49;39m" }
+style red     { pre "\E[37;41m" post "\E[49;39m" }
+
+/kernel: (.*)/ {
+  green
+  /panic/ig { red }
+}

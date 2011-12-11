@@ -1,0 +1,31 @@
+# Some styles for ANSI character attributes
+
+style plain	{ pre "\E[0m"  post "\E[0m"  }
+
+style bold      { pre "\E[1m"  post "\E[22m" }
+style underline { pre "\E[4m"  post "\E[24m" }
+style blink     { pre "\E[5m"  post "\E[25m" }
+style inverse   { pre "\E[7m"  post "\E[27m" }
+
+style black     { pre "\E[30m" post "\E[39m" }
+style red       { pre "\E[31m" post "\E[39m" }
+style green     { pre "\E[32m" post "\E[39m" }
+style yellow    { pre "\E[33m" post "\E[39m" }
+style blue      { pre "\E[34m" post "\E[39m" }
+style magenta   { pre "\E[35m" post "\E[39m" }
+style cyan      { pre "\E[36m" post "\E[39m" }
+style white     { pre "\E[37m" post "\E[39m" }
+
+style blackbg   { pre "\E[40m" post "\E[49m" }
+style redbg     { pre "\E[41m" post "\E[49m" }
+style greenbg   { pre "\E[42m" post "\E[49m" }
+style yellowbg  { pre "\E[43m" post "\E[49m" }
+style bluebg    { pre "\E[44m" post "\E[49m" }
+style magentabg { pre "\E[45m" post "\E[49m" }
+style cyanbg    { pre "\E[46m" post "\E[49m" }
+style whitebg   { pre "\E[47m" post "\E[49m" }
+
+style standard   { pre "\E[38m" post "\E[39m" }		# XXX
+style standardbg { pre "\E[48m" post "\E[49m" }		# XXX
+style default    { pre "\E[39m" post "\E[39m" }		# XXX
+style defaultbg  { pre "\E[49m" post "\E[49m" }		# XXX

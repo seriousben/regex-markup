@@ -1,0 +1,4 @@
+style s0 { pre "<" post ">" }
+
+s0
+s//x/g

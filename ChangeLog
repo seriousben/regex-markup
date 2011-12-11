@@ -1,0 +1,290 @@
+Fri Apr 11 17:07:24 CEST 2003
+
+	* This file is no longer being updated. Please see the NEWS file instead.
+
+Wed May 15 10:39:48 CEST 2002
+
+	* examples/logwatcher: Execute tail command with --quiet option.
+
+Mon Mar 11 12:44:18 CET 2002
+
+	* configure.ac:
+	Now use bug report address to AC_INIT, and substitute correctly
+	into config.h.
+
+Thu Feb  7 11:51:04 CET 2002
+
+	* Makefile.am:
+	(debian) Add -b.
+	(rpm) Build with -bb instead of -ba, and use fakeroot.
+
+Tue Jan 15 20:28:08 CET 2002
+
+	* configure.ac: Check for isascii btowc as functions, not headers.
+	* Makefile.am:
+	Include regex-markup.spec.in in EXTRA_DIST.
+	Replaced package name with @PACKAGE@.
+
+Sun Jan  6 15:58:25 CET 2002
+
+	* src/match.c:
+	(try_match) Don't update subv - xregexec.. has already done.
+	* src/execute.c:
+	(execute_substitution_rule) Ditto.
+
+Sun Jan  6 13:07:28 CET 2002
+
+	* Release 0.8.0.
+
+Sun Jan  6 12:54:17 CET 2002
+
+	* src/execute.c:
+	(execute_substitution_rule) Now updates subexpression indices
+	prior to expanding substitution.
+	* src/testsuite/bug04.{rules,in,out}: New files.
+	* src/testsuite/Makefile.am: Added the above.
+
+Fri Jan  4 22:13:02 CET 2002
+
+	* examples/rules/syslog: Fixed cron replacement.
+
+Tue Dec 25 22:03:37 CET 2001
+
+	* examples/rules/make: New file.
+	* examples/rules/common: New style standard (need to be fixed though).
+
+Sat Dec 22 17:22:19 CET 2001
+
+	* src/testsuite/bug1.{rules,in,out}: Renamed to bug02.
+	* src/testsuite/crash.{rules,in,out}: Renamed to bug01.
+	* src/testsuite/bug03.{rules,in,out}: New files.
+	* src/testsuite/Makefile.am: Applied the above changed.
+	* src/match.c: (try_match) Check that subpattern was not
+	empty before succeeding.
+
+Sat Dec 22 14:29:32 CET 2001
+
+	* README: Added requirements of gcc 2.95.x.
+
+Fri Dec 21 16:25:34 CET 2001
+
+	* Release 0.7.0.
+
+Fri Dec 21 11:50:59 CET 2001
+
+	* regex-markup.spec.in: New file.
+	* configure.ac:
+	Added regex-markup.spec.in.
+	Added PKGUSERDIR stuff to config.h.
+	* src/Makefile.am: Add PKGDATADIR to CFLAGS.
+	* src/parser.y: Look for script in many
+	directories.
+	* examples/rules: New directory.
+	* examples/*.rules: Moved files to rules directory.
+	* Makefile.am: (rpm) New target.
+
+Wed Dec 19 22:25:22 CET 2001
+
+	* README: Added section about Common problems.
+
+Wed Dec 19 11:54:04 CET 2001
+
+	* Release 0.6.0.
+	* src/cacheline.c: New file.
+	* src/cacheline.1: New file.
+	* src/Makefile.am: Added cacheline.c and cacheline.1.
+	* examples/cacheline: Removed file.
+	* Makefile.am: Removed examples/cacheline.
+	* README: Removed text about foldlog.
+	* README: Added text about cacheline.
+	* examples/logwatcher: Improved way of detecting terminal
+	width (using stty).
+	* AUTHORS: Updated.
+
+Wed Dec 19 10:47:53 CET 2001
+
+	* execute.c: Rewrote insert_style section to use ListNode
+	instead of iterator functions. Less clean (maybe), but faster
+	and doesn't need to create temporary lists.
+
+Tue Dec 18 18:06:51 CET 2001
+
+	* match.c:
+	(expand_substitution, expand_variable) Don't allocate string
+	passed to expand_variable; send inline instead.
+	Also don't add backslash character (unless escaped).
+
+Tue Dec 18 11:47:30 CET 2001
+
+	* examples/diff.rules: New file.
+
+Mon Dec 17 21:03:47 CET 2001
+
+	* Too many changes to mention...
+
+Tue Dec  4 19:15:15 CET 2001
+
+	* src/execute.c, src/match.c:
+	Clean up use of iterators.
+	
+Mon Dec  3 17:44:07 CET 2001
+
+	* Makefile.am: (clean-local) Remove more files.
+	* examples/logwatcher:
+	Added some more text.
+	Use /var/log/psyslog initially instead of /var/log/syslog.
+	Use --retry option to tail.
+	Use exec in various places to reduce number of processes.
+
+Mon Dec  3 17:26:29 CET 2001
+
+	* Release 0.4.0.
+	* Makefile.am:
+	(examples/cacheline) New file.
+	(examples/syslog) Removed.
+	(examples/syslog-pass-1) New file.
+	(examples/syslog-pass-2) New file.
+	* configure.ac:
+	(src/testsuite/foldlog/Makefile) New generated file.
+	(src/testsuite/remark/Makefile) New generated file.
+	* examples/logwatcher: Many changes...
+	...
+
+Thu Nov 15 22:38:49 CET 2001
+
+	* match.c: (new_subex_match) Use parse_uint32 instead of xstrtoi.
+	* script.y: (yylex) Ditto.
+
+Wed Oct 31 15:31:59 CET 2001
+
+	* README: Mention fileutils copyright.
+	* configure.ac: Many new checks needed for
+	the compatibility files.
+	* debian/copyright: Mention fileutils copyright.
+	* src/Makefile.am: Added compat subdirectory.
+	* src/command.c: Better error messages wrt regex compilation.
+	* src/common/Makefile.am: Use compat includes.
+	* src/remark.c:
+	Use compat includes.
+	(parse_script) Use dir_name instead of dirname.
+	(main) Set program_invocation_name if necessary.
+	* src/remark.h: Use compat includes.
+	* src/script.y:
+	Use compat includes.
+	Use dir_name instead of dirname.
+	* src/testsuite/verify: Use bash, not sh (needed for ${..} stuff).
+	* src/compat/*: Many new files.
+
+Sun Oct 28 12:55:17 CET 2001
+
+	* src/foldlog.c: New file.
+	* src/Makefile.am: Added foldlog.c.
+	* src/Makefile.am: Added bison.simple.fixed to EXTRA_DIST.
+	* README: Added a little info about foldlog.
+
+Sun Oct 28 00:18:12 CEST 2001
+
+	* Release 0.3.0.
+	* src/remark.1: Updated text about substitution.
+
+Sat Oct 27 23:54:47 CEST 2001
+
+	* examples/rules/syslog: Updated.
+	* src/command.c: Added copyright header.
+	* src/execute.c: Ditto.
+	* src/match.c: Ditto.
+	* src/remark.c: Ditto.
+	* src/remark.h: Ditto.
+	* src/script.y: Ditto.
+	* src/style.c: Ditto.
+	* src/command.c:
+	(free_command) Handle COMMAND_STYLE.
+	(free_root_command) No longer free style.
+	(new_root_command) Don't set style.
+	(new_style_command) New function.
+	(new_macro) Don't set style.
+	(new_match) Don't set style.
+	* src/execute.c:
+	(execute_command) Fixed order of inserting styles.
+	Added debugging commands (various places).
+	(execute_match_command) Fixed style position bug
+	causing segfault.
+	(exec_command) Handle COMMAND_STYLE.
+	(insert_style) New system.
+	* src/match.c:
+	(expand_variable) New function.
+	Added debugging commands (various places).
+	(new_match_state) Don't set ms->eo.	
+	(expand_substitution) Better handling of dollar-replacement,
+	use expand_variable.
+	* src/remark.c:
+	(parse_script) Better error messages.
+	(main) Install SIGINT signal listener only if
+	standard in is not a terminal.
+	* src/remark.h:
+	(CommandType) New value COMMAND_STYLE.
+	(RootCommand) Remove style.
+	(StyleCommand) New structure.
+	(MatchState) Remove eo field.
+	(new_style_command) New declaration.
+	* src/script.y:
+	(arg) Remove variable.
+	(tokens) New variable.
+	(match_stmt) Create StyleCommand instead of setting style.
+	(match_stmt) Use $2 instead of arg.
+	(yylex) Don't free yylval.
+	(yylex) Add yylvals to tokens variable.
+	(parse_open_string) Initialize and free tokens list.
+	(parse_open_string) Don't free yylval.
+	(include_file) Don't set or free yylval.
+	* src/testsuite/Makefile.am: New system for testsuite.
+	* src/testsuite/*: New tests.
+	* src/testsuite/verify.c: Removed script.
+	* src/testsuite/verify: New script.
+
+Fri Oct 26 09:50:50 CEST 2001
+
+	* src/script.y: Now put allocated tokens in a separate stack.
+	Free that stack when finished parsing.
+	* src/remark.c: (parse_script) Improved error messages.
+
+Thu Oct 25 15:34:22 CEST 2001
+
+	* README: Removed much of the "Format of rule files" section.
+	* src/remark.1: Added sections about format of rule files.
+
+Thu Oct 25 14:42:19 CEST 2001
+
+	* Release 0.2.0.
+	* debian/changelog, debian/control, debian/copyright,
+	debian/dirs, debian/docs, debian/rules:
+	New files.
+	* Makefile.am:
+	(EXTRA_DIST) Added debian files.
+	(built-debian) New target.
+	(clean-local) New target to clean debian subdir.
+	* README, AUTHORS, configure.ac: Updated email-address of author.
+	* src/remark.1: New file.
+	* src/Makefile.am:
+	(man_MANS) Added to include manpages.
+	(EXTRA_DIST) Necessary for man_MANS.
+
+Thu Aug 30 14:39:06 CEST 2001
+
+	* configure.ac: Added check for pow function.
+	Added check for alloca.h and malloc.h headers.
+	Added AC_PROG_AWK, AC_PROG_LN_S.
+	Added AC_TYPE_OFF_T.
+
+Thu Aug 16 10:33:49 CEST 2001
+
+	* src/common/ChangeLog: New file, with changes to
+	src/common/* delegated to that file.
+
+Mon Aug 13 15:26:12 CEST 2001
+
+	* Release 0.1.0. First public release.
+
+Thu Aug  2 12:06:14 CEST 2001
+
+	* ChangeLog: Created file.

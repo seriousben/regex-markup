@@ -1,0 +1,9 @@
+style green { pre "{" post "}" }
+style red { pre "(" post ")" }
+style blue { pre "[" post "]" }
+
+/^(.*)$/ {
+  1 green
+  /apanicb/ { blue }
+  /panic/ { red }
+}

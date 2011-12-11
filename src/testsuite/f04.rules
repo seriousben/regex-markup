@@ -1,0 +1,9 @@
+style s0 { pre "[" post "]" }
+style s1 { pre "{" post "}" }
+style s2 { pre "(" post ")" }
+style s3 { pre "<" post ">" }
+
+/alpha/ s0
+/beta/  s1
+/gamma/ s2
+/tlek/  s3

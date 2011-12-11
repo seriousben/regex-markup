@@ -1,0 +1,42 @@
+include "common"
+
+style quotes { bold black }
+
+/^(make)  ([^ ]*)/ { 1 red 2 green }
+/^(make)(\[)([0-9]+)(\]): (.*)$/ {
+  1 red
+  2,4 quotes
+  3 blue
+  5 {
+    cyan
+    /^Entering directory (`)(.*)(')$/       { 1,3 quotes 2 blue }
+    /^Leaving directory (`)(.*)(')$/        { 1,3 quotes 2 blue }
+    /^Nothing to be done for (`)(.*)(')\.$/ { 1,3 quotes 2 green }
+  }
+}
+/^(make): (\*\*\*) (.*)$/ {
+  1 red
+  2 { red bold }
+  3 {
+    cyan
+    /^No rule to make target (`)(.*)(')/ {
+      1,3 quotes
+      2 green
+    }
+    /^Warning: File (`)(.*)(') has modification time in the future / {
+      1,3 quotes
+      2 blue
+    }
+  }
+}
+/^(make): (`)(.*)(') is up to date.$/ {
+  cyan
+  1 red
+  2,4 quotes
+  3 blue
+}
+
+/^Making all in (.*)$/ {
+  cyan
+  1 blue
+}

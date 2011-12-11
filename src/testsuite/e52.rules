@@ -1,0 +1,7 @@
+style green { pre "{" post "}" }
+style red { pre "(" post ")" }
+
+/kernel: (.*)/ {
+  green
+  /panic/ig { red }
+}

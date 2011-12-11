@@ -1,0 +1,9 @@
+style red     { pre "\E[37;41m" post "\E[49;39m" }
+style blue    { pre "\E[37;44m" post "\E[49;39m" }
+style green   { pre "\E[37;42m" post "\E[49;39m" }
+
+/^(.*)$/ {
+  1 green
+  /apanicb/ { blue }
+  /panic/ { red }
+}

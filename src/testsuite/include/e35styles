@@ -1,0 +1,5 @@
+style blue { pre "b" }
+style red { pre "r" }
+style green { pre "r" }
+
+macro bar { /bar/ red }

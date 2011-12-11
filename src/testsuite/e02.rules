@@ -1,0 +1,4 @@
+style test { pre "{" post "}" }
+
+test
+skip

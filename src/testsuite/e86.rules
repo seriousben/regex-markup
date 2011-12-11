@@ -1,0 +1,1 @@
+/(foo)(bar)/ { set "aaa$2bbb$1ccc" }

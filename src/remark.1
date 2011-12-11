@@ -1,0 +1,331 @@
+.\"                                      -*- nroff -*-
+.\" remark.1 - Manual page for remark.
+.\"
+.\" Copyright (C) 2001-2005 Oskar Liljeblad
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU Library General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; if not, write to the Free Software
+.\" Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+.\"
+.TH REMARK "1" "May 4, 2005" "remark (regex-markup)"
+.SH NAME
+remark \- Highlight text using regular expressions
+.SH SYNOPSIS
+.B remark
+.RI [ OPTION ]... " " [ FILE ] " " [ TEXT ]...
+.SH DESCRIPTION
+This manual page document describes the \fBremark\fP command.
+
+The \fBremark\fP program (regex-markup) performs regular expression-based
+text markup according to used-defined rules. This can be used to color
+syslog files as well as the output of programs such as ping,
+traceroute, gcc etc. The hierarchal rules-format is simple to
+understand, yet very powerful.
+
+The \fBremark\fP program reads lines of text from standard in (or uses
+TEXT as input string). Each line is highlighted according to rules
+defined in FILE, and is then printed to standard out. Lines are
+optinally wrapped (split) to fit within some specified width.
+.SH OPTIONS
+These programs follow the usual GNU command line syntax, with long
+options starting with two dashes (`-').
+.TP
+.B \-p, \-\-prepend=\fISTRING\fR
+When wrapping, this specifies a string that will be added
+to the end of all wrapped lines (except the last one).
+
+It is possible to highlight this string from rule scripts
+by using the `prepend' keyword. See below for more information.
+.TP
+.B \-a, \-\-append=\fISTRING\fR
+When wrapping, this specifies a string that will be added
+before all wrapped lines (but after any retained text).
+The first wrapped line will not have this string appended.
+
+It is possible to highlight this string from rule scripts
+by using the `append' keyword. See below for more information.
+.TP
+.B \-r, \-\-retain=\fICOUNT\fR
+When wrapping, this allows a number of characters from the
+beginning line to be copied to all wrapped lines, as a
+common header.
+.TP
+.B \-w, \-\-width=\fICOLUMNS\fR
+Specifies maximum width of printed lines. If this is specified
+but not \-\-wrap, then character wrapping (\-\-wrap=char) is
+automaticly enabled.
+.TP
+.B \-f, \-\-wrap=\fIMODE\fR
+Specify wrapping type. The possible values for MODE are
+`none' or `n' for no wrapping, `char' or `c' for wrapping that
+breaks between character, and `word' or `w' for wrapping that
+breaks between words.
+.TP
+.B \-\-help
+Show summary of options.
+.TP
+.B \-\-version
+Output version information and exit.
+.SH RULE FORMAT
+The remainder of this manual describes the format of highlighting rules
+used by regex-markup. For the short version, look at the example files
+in the examples subdirectory. The hierarchal format should be
+mostly self explanatory.
+.PP
+A rule file consists of style and macro definitions, and match
+statements. Order of match statements is important, since they
+are executed from top down. Styles and macros need to be
+defined before they are used.
+.PP
+The syntax of rule files is similar to that of programming
+languages such as C and Java in that indentation and use of
+whitespace doesn't matter. The following are all valid:
+.PP
+  style foobar { pre "blah" }
+
+  style foobar
+  {
+  pre
+  "blah"
+  }
+
+  style foobar pre "blah"
+.PP
+The braces ('{' and '}') have been skipped in the last example.
+Similar to the programming languages, this allows only one
+statement (`pre "blah"') to be associated with the style
+(`style foobar').
+.SH STYLES
+A style defines what to do with a piece of text when some it has
+been decided that it is highlighted. Each style has a unique
+name which is case sensitive. Any character that doesn't interfere
+with the parsing is allowed in style names. 
+
+Since the \fBremark\fP program outputs to terminals, a style is basicly
+just a string to insert before the style begins, and a style to
+insert after. These are specified with `pre' and `post':
+
+  style MyBoldStyle
+  {
+    pre "\\E[1m"
+    post "\\E[0m"
+  }
+
+E.g. If a piece of text, say `foobar', was marked up with the style
+above, the result would be `\\E[1mfoobar\\E[0m`.
+
+It is also possible to include other styles in a style:
+
+  style BoldBlue {
+    pre "\\E[34m" post "\\E[39m"
+    MyBoldStyle
+  }
+.SH MATCHING AND HIGHLIGHTING
+By matching parts of text, those parts can be highlighted by the use of
+styles. A match is written as a regular expression, same syntax as in
+Perl. E.g.
+
+  /foo/ MyBoldStyle
+  /bar/ { BoldBlue }
+
+(The braces in the second line are unnecessary and could be elimited.)
+
+The first statement (/foo/ MyBoldStyle) would color the first occurrence
+of `foo' in the line with the style MyBoldStyle. The second would color
+the first occurrence of `bar' with BoldBlue.
+
+Matches are hierarchal, which is why the following is possible:
+
+  /foobar/ {
+    MyBoldStyle
+    /bar/ BoldBlue
+  }
+
+The first `foobar' occurrence found will be colored like this:
+`foo' will be colored MyBoldStyle (actually `foobar' will),
+and `bar' BoldBlue. The result is that `foobar' is bold, and
+`bar' blue. There's no limit to the depth of hierarchal matches,
+as long as there's free memory.
+
+The \fBremark\fP program uses extended POSIX regular expressions (similar to
+those used in Perl), which are described in the manpage regex(7).
+The following would color `fo' followed by any number of `o' using
+MyBoldStyle.
+
+  /fo+/ MyBoldStyle
+
+Note that these regex matches are case sensitive by default. This can
+be changed by using the `i' option just after the last slash:
+
+  /bar/i MyBoldStyle
+
+This would match `bar', `BAR', `Bar' etc. Sometimes you also want to
+highlight all occurrencies of a work. Do this with the `g' option:
+
+  /bar/g MyBoldStyle
+
+Remember that \fBremark\fP tries matches in one line at a time.
+.SH SUBMATCHES
+Submatches or subexpressions in regular expressions are used to selects
+parts of the matched text of the regex. The following regex has two
+subexpressions:
+
+  /([0-9]+) seconds left, ([0-9]+) elapsed/
+
+Subexpressions are numbered from 1 and up. To color only a particular
+subexpression, write like this:
+
+  /([0-9]+) seconds left, ([0-9]+) elapsed/ {
+    red
+    1 blue
+    2 green
+  }
+
+In this case, the whole line would be colored red, with the exception of
+the first and second subexpressions, which would be colored blue and green,
+respectively. It is also possible to continue matching in subexpressions:
+
+  /([0-9]+) seconds left, ([0-9]+) elapsed/ {
+    red
+    1 {
+      blue
+      /^0$/ red
+    }
+    2 green
+  }
+.SH MULTIPLE MATCHES
+It is possible to execute the same statements for multiple matches or
+subexpressions by separating the matches with a comma (`,'):
+
+  /foo/,/bar/ blue
+
+  /m(e)(e)k/ {
+     1,2 blue
+  }
+.SH MACROS
+A macro is a grouping of commands, which may be executed at any time.
+Macros are similar to styles in that they are defined once and then
+used in one or more places. 
+
+The following macro colors the string it is passed blue, unless it is
+`0', in which case it is colored red:
+
+ macro digit-color {
+   blue
+   /^0$/ red
+ }
+
+This macro can be used to simplify the submatch example above:
+
+  /([0-9]+) seconds left, ([0-9]+) elapsed/ {
+    red
+    1 digit-color
+    2 green
+  }
+.SH SUBSTITUTION
+Substitution - replacing text - is done with the s// construct:
+
+  s/foo/bar/
+
+This would replace the first occurrence of `foo' with `bar'.
+Here /foo/ is a regular expression, and /bar/ is a special
+replacement string.
+
+The thing special with the replacement string is that it is
+possible to reference subexpressions in the regex part
+of the substitution. This is done with the dollar sign (`$'),
+followed by the number of the subexpression.
+
+  s/f(o+)/b$1/
+
+This would replace `fo' to `bo', `foo' to `boo' etc.
+It is also legal to write `${1}' instead of `$1' (this
+might be necessary when the character following `$1' is
+actually a digit).
+
+The following dollar-variables may be used in the replacement
+string:
+
+$`	The string preceding what was matched
+
+$&	The whole string that matched (also $0)
+
+$'	The string following what was matched
+
+The flags `i' and `g' described above may be used as well.
+
+`set' is another substitution statement, implement to make
+substitution more simple. It replaces the text in the current
+context with an expanded string. Example:
+
+  /foo/ set "bar"
+  
+This would cause the first occurence of "foo" to be replaced with "bar".
+This is equivalent to:
+
+  s/foo/bar/
+
+However, in some situations `set' is easier to write:
+
+  /complex match string/ { blue set "bar" }
+
+rather than
+
+  /complex match string/ { blue s/complex match string/bar/ }
+
+The string specified as an argument to "set" is expanded according to
+the rules for s// above, making this possible:
+
+  /(foo)(bar)/ set "$2$1"
+
+which would replace "foobar" with "barfoo". Note that $` and $' might
+have no replacement (i.e. will be replaced by the empty string) when
+used with `set'.
+.SH CONTROL STATEMENTS
+Two control statements are supported, `skip' and `break'.
+
+Whenever a `skip' statement is encountered, the current line
+will be discarded and not displayed at all. This can be useful
+to hide unnecessary lines from the user. E.g.
+
+  /CRON.*mail/ skip
+
+The `break' statement can be used to speed up execution (i.e.
+matching and highlighting). Whenever it is encountered, the
+matching is considered to be finished, and the line will
+be printed immediately (as marked up).
+.SH PREPEND AND APPEND
+It is possible to highlight the strings specified with
+`--prepend' and `--append'. This is done by using the
+`prepend' (or `pre') and `append' (or `post') keywords
+like this:
+
+  prepend { blue }
+
+  append { green }
+
+Of course, all statements described above may be used instead
+of  `blue' and `green'.
+.SH EXAMPLES
+Highlight ping output using the ping rules file:
+.br
+	\fBping localhost | remark ../examples/ping.rules\fP
+.SH REPORTING BUGS
+Report bugs to <\fIoskar@osk.mine.nu\fP>.
+.SH AUTHOR
+\fBremark\fP was written by Oskar Liljeblad <\fIoskar@osk.mine.nu\fP>.
+.SH COPYRIGHT
+Copyright \(co 2001-2005 Oskar Liljeblad
+
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

@@ -1,0 +1,50 @@
+# Rudimentary rules to highlight the output of traceroute(8)
+
+include "common"
+
+# Special: Color all lines that don't match any of the rules below red
+/.*/ red
+
+/^traceroute: Warning: ([-.a-zA-Z0-9]+) has multiple addresses; using ([-.a-zA-Z0-9]+)$/ {
+  default
+  1 blue
+  2 green
+  break
+}
+
+/^traceroute to ([-.a-zA-Z0-9]+) \(([-.a-zA-Z0-9]+)\), [0-9]+ hops max, [0-9]+ byte packets$/ {
+  default
+  1 blue
+  2 green
+  break
+}
+
+/^([ 0-9]+)  ([-.a-zA-Z0-9]+) \(([-.a-zA-Z0-9]+)\)  / {
+  default
+  1 red
+  2 blue
+  3 green
+  break
+}
+
+/^([ 0-9]+)  \* ([-.a-zA-Z0-9]+) \(([-.a-zA-Z0-9]+)\)  / {
+  default
+  1 red
+  2 blue
+  3 green
+  break
+}
+
+/^([ 0-9]+)  \* \* ([-.a-zA-Z0-9]+) \(([-.a-zA-Z0-9]+)\)  / {
+  default
+  1 red
+  2 blue
+  3 green
+  break
+}
+
+/^([ 0-9]+)  \* \* \*$/ {
+  default
+  1 red
+  break
+}

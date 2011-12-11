@@ -1,0 +1,6 @@
+# case 4a
+style s1 { pre "{" post "}" }
+style s2 { pre "(" post ")" }
+
+/oba/ s1
+/oob/ s2

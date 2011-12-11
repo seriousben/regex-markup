@@ -1,0 +1,65 @@
+# Rules to highlight the output of ping(8)
+
+include "common"
+
+# Special: Color all lines that don't match any of the rules below red
+/.*/ red
+
+
+/^PING ([-.a-zA-Z0-9]+) \(([-.a-zA-Z0-9]+)\) ([0-9]+)\(([0-9]+)\) bytes of data\.$/ {
+  default
+  1 blue
+  2 green
+  3,4 red
+  break		# this is merely to skip the matches below
+}
+
+/^PING ([-.a-zA-Z0-9]+) \(([-.a-zA-Z0-9]+)\): ([0-9]+) data bytes$/ {
+  default
+  1 blue
+  2 green
+  3 red
+  break		# this is merely to skip the matches below
+}
+
+/^([0-9]+) bytes from ([-.a-zA-Z0-9]+) \(([-.a-zA-Z0-9]+)\): icmp_seq=([0-9]+) ttl=([0-9]+) time=(.*)$/ {
+  default
+  1,4,5,6 red
+  2 blue
+  3 green
+  break
+}
+/^([0-9]+) bytes from ([-.a-zA-Z0-9]+): icmp_seq=([0-9]+) ttl=([0-9]+) time=(.*)$/ {
+  default
+  1,3,4,5 red
+  2 green
+  break
+}
+
+/^--- ([-.a-zA-Z0-9]+) ping statistics ---$/ {
+  default
+  1 blue
+  break
+}
+
+/^([0-9]+) packets transmitted, ([0-9]+) packets received, ([0-9]+)% packet loss$/ {
+  default
+  1,2,3 red
+  break
+}
+/^([0-9]+) packets transmitted, ([0-9]+) received, ([0-9]+)% packet loss, time ([0-9]+ms)$/ {
+  default
+  1,2,3,4 red
+  break
+}
+
+/^round-trip min\/avg\/max = ([.0-9]+)\/([.0-9]+)\/(.*)$/ {
+  default
+  1,2,3 red
+  break
+}
+/^rtt min\/avg\/max\/mdev = ([.0-9]+)\/([.0-9]+)\/([.0-9]+)\/(.*)$/ {
+  default
+  1,2,3,4 red
+  break
+}

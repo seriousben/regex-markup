@@ -1,0 +1,161 @@
+style overlapping behavior.
+  Style B occurs over or inside style A.
+    If A { inside/under B }, then result will be <B><A>...</A></B>. Automatic order or disallow?
+    If A { outside/over B }, then result will be <A><B>...</B></A>. Automatic order or disallow?
+    If A { exclusive B }, then result will be <A>...</A> (the last style added). Empty styles discarded.
+  # If A { allow-empty }, then empty instances of this style will be allowed (bad?).
+  # If A { empty-only }, then instances of this style must be empty.
+
+  style attributes:
+    A:bg
+    A:fg
+    A {
+      pre:bg .. post:bg ..
+      pre:fg .. post:fg ..
+      pre .. post ..
+    }
+
+  class for exclusive foreground-color, background-color
+
+  exclusive STYLENAME|CLASSNAME
+  inside STYLENAME|CLASSNAME
+  outside STYLENAME|CLASSNAME
+
+remark ping foo
+ - automaticly uses markup
+ - enables
+ alias ping="remark ping"
+
+Possibly earlier than 1.0:
+  * compare results wrt ping and ctrl+c (check screenshots). ignore signal, yes/no?
+  * kernel netfilter log example ruleset
+
+For 1.0?:
+ * Make support for HTML markup
+   Improve style management
+
+   need to add a new style feature:
+     style X { parent STYLE }
+   whenever a style X is inside a parent STYLE, it is not necessary
+   to terminate and restart STYLE. This is to prevent us from getting
+     <html>Blah </html><font blue>Blah</font><html> Bleh</html>
+   instead we want
+     <html>Blah <font blue>Blah</font> Bleh</html>
+
+    style blue { exclusive foreground-color }
+    style bluebg { exclusive background-color }
+
+   Also make some HTML examples
+
+ * Test (..)+
+ * Test (..)?
+
+ * I want \d for [0-9]
+
+ * rem ping localhost? automaticly use ping script?
+   rem() { "$@" | remark "$1"; }
+   add new option to ignore non-existant scripts;
+   just filter through
+
+ * solve issues with leading whitespace and areas of >width whitespace.
+
+ * it is not called `subexpression', it is called something else. look it up.
+
+ * make example for netstat
+   make example for gcc
+   make example for ls -l
+   make example for cvs update and cvs status
+   make example for rpm -i
+   make example for ps aux
+   make example for w
+
+ * step 2 of logwatcher: follow/stalk in C.
+
+ * feature: When no --width is specified, assume terminal width?
+
+ * improve memory management over all. (Places marked XXX.)
+
+ * clean up: configure.ac: use AC_REPLACE_FUNCS for compat?
+
+ * parser.y: Improved error messages:
+   include trace where style was declared
+   include trace where macro was declared
+   include trace where prepend was declared
+   include trace where append was declared
+
+ * remark.1: add more examples wrt wrapping
+
+Possibly for 2.0 or later:
+
+ * From rule files, controllable variables:
+   set retain NUMBER
+   set width NUMBER
+   set prepend STRING
+   set append STRING
+   set wrap STRING
+
+ * more command line options:
+   --no-styles		do not append styles
+   --no-includes	disable include keyword
+   --no-subst		never do substitutions (s//)
+
+ * variables for match & subst
+   VARIABLE-NAME = ( STRING | .. )
+
+ * shell interpretion:
+   VARIABLE-NAME = `shell`
+   /`cat /etc/hostname`/
+   s/alpha/`cat /etc/hostname`/
+
+ * delete - faster alias for s/^.*$//
+   replace TEXT - faster alias for s/^.*$/TEXT/
+
+ * state management.
+   enter STATE	- enable state
+   leave STATE	- disable state
+   STATE CODE	- execute CODE info if STATE enabled
+
+ * learning. by keeping list structures of data. like this:
+   add list1 ["$1"]
+   remove list1 ["$1"]
+   in list1 ["$1"] RULES
+
+ * special match-methods:
+   plaintext matches.
+   substring matches. case insensitive.
+   sub word. etc.
+
+ * allow whitespaces and comments in regular expressions with //x
+
+--------------
+
+String comparision:		EQ, NE, LT, LE, GT, GE
+Numeric comparision:		=, !=, <, <=, >, >=
+###Conjunction:			+
+###Disjunction:			,
+
+Separation:			( )
+
+
+/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/
+{
+  (1=192 and 2=168 and 3>=0 and 3<=255 and 4>=0 and 4<=255) or
+  (1=193 and 2=13 and 3=139 and 4>=0 and 4<=255)
+}
+
+  (1=192 and 2=168 and 3 (>=0 and <=255) and 4 (>=0 and <=255)
+
+1 eq "foo" then 2 eq "bar" then blue
+1 eq "foo" and 2 eq "bar" then blue
+1 eq "foo" or 2 eq "bar" then blue
+
+
+These are all equal:
+  (1 eq "foo") | (2 eq "bar") blue
+  1 eq "foo" | 2 eq "bar" blue
+  (1 eq "foo" | 2 eq "bar") blue
+  
+  (1 eq "bar")+(2 eq "baz") blue   # what is highlighted blue here!?
+
+Syntax-modification:
+  subscript always starts with $, e.g. $1, $2, ...

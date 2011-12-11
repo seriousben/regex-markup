@@ -1,0 +1,213 @@
+#! /bin/sh
+#
+# LogWatcher - Display syslogs highlighted by remark in a terminal window
+#
+# Use `logwatcher -h' for usage information.
+#
+# It doesn't really need to be this complicated. Here's a short summary
+# of what this script does:
+#
+# cat /var/log/syslog | remark rules/syslog -w60 -r9 -fw -p.. | cacheline
+#
+# (All this is done inside a new terminal window by default.)
+# 
+
+basedir="`dirname $0`"
+
+# Paths of the remark, foldlog and cacheline binaries (tried in order)
+BINARY_PATH=(
+  ""
+  "./"
+  "../src/"
+  "src/"
+  "examples/"
+  "$basedir/"
+  "$basedir/../src/"
+)
+
+# Name and path of rule file
+RULE_FILE=(
+  "./rules/syslog"
+  "./syslog"
+  "examples/rules/syslog"
+  "$basedir/rules/syslog"
+  "$basedir/examples/rules/syslog"
+)
+
+# Location of the terminal emulator binary (tried in order)
+TERM_PROGRAM=(
+  "rxvt"
+  "xterm"
+)
+
+# Options to pass to the terminal emulator
+TERM_OPTS="-name logwatcher -e"
+
+# Resources for the terminal emulator (each line will be loaded)
+TERM_RESOURCES=(
+  "logwatcher.geometry: 60x10-0+0"
+  "logwatcher.font: -misc-fixed-medium-r-normal-*-*-100-*-*-c-*-iso8859-1"
+  "logwatcher.title: LogWatcher"
+  "logwatcher.scrollBar_right: True"
+  "logwatcher.utmpInhibit: True"
+)
+
+# Log file to display (tried in order)
+LOG_FILES=(
+#  "/var/log/psyslog"
+  "/var/log/syslog"
+  "/var/log/messages"
+)
+
+#
+#
+#
+
+opt_stdout=0
+opt_mute=1
+
+# Parse options
+while getopts "hsmM" OPT; do 
+  case $OPT in
+    h) echo "Usage: logwatcher [OPTIONS].. [LOGFILE]"
+       echo
+       echo " -s  output to standard out instead of a terminal"
+       echo " -m  don't run 'stty -echo' on the terminal"
+       echo " -h  display this help and exit"
+       echo
+       echo "Unless a log file has been specified, a standard file"
+       echo "(such as /var/log/syslog or /var/log/messages) will be used."
+       echo "The terminal emulator and remark binary locations will be"
+       echo "automaticly identified."
+       echo
+       echo "For more information, see 'remark --help'."
+       exit 1
+       ;;
+    s) opt_stdout=1
+       ;;
+    M) opt_mute=2
+       ;;
+    m) opt_mute=0
+       ;;
+    *) exit 1
+       ;;
+  esac
+done
+shift $[OPTIND - 1]
+
+# Find programs
+function find_program () {
+  local c
+  for ((c=0; c < ${#BINARY_PATH[@]}; c++)); do
+    if command -v "${BINARY_PATH[$c]}$1" >/dev/null 2>&1; then
+      echo "${BINARY_PATH[$c]}$1"
+      return
+    fi
+  done
+}
+
+prg_remark=`find_program remark`
+if [ -z $prg_remark ]; then
+  echo "$0: remark: command not found"
+  exit 1
+fi
+prg_cacheline=`find_program cacheline`
+if [ -z $prg_cacheline ]; then
+  echo "$0: cacheline: command not found"
+  exit 1
+fi
+
+# Find rule files
+function find_rule_file () {
+  local c
+  for ((c=0; c < ${#RULE_FILE[@]}; c++)); do
+    if [ -f "${RULE_FILE[$c]}" ]; then
+      echo "${RULE_FILE[$c]}"
+      return
+    fi
+  done
+}
+rules=`find_rule_file`
+if [ -z "$rules" ]; then
+  rules="syslog"
+#  echo "$0: cannot find rule file"
+#  exit 1
+fi
+
+# Find log file
+if [ $# -gt 0 ]; then
+  file_log=$1
+  if [ "$file_log" = "-" ]; then
+    file_log="/dev/stdin"
+  fi
+  if [ ! -e $file_log ]; then
+    echo "$0: $file_log: no such file or directory"
+    exit 1
+  fi
+  if [ ! -r $file_log ]; then
+    echo "$0: $file_log: cannot read - permission denied"
+    exit 1
+  fi
+else
+  file_log=
+  for ((c=0; c < ${#LOG_FILES[@]}; c++)); do
+    if [ -e ${LOG_FILES[$c]} -a -r ${LOG_FILES[$c]} ]; then
+      file_log="${LOG_FILES[$c]}"
+      break
+    fi
+  done
+  if [ -z $file_log ]; then
+    echo "$0: no log file found"
+    exit 1
+  fi
+fi
+
+# Start the program
+if [ $opt_stdout = 1 ]; then
+  if [ $opt_mute = 2 ]; then
+    stty -echo
+  fi
+  cols=`stty -a|sed 's/.*\; columns \([0-9]*\)\;.*/\1/p;d'`
+  (if [ -p $file_log ]; then
+     while true; do
+       cat $file_log
+     done
+  else
+    exec tail --quiet --retry --follow=name $file_log
+  fi) \
+    | $prg_remark $rules -w$cols -r9 -fw -p.. \
+    | $prg_cacheline
+  if [ $opt_mute = 2 ]; then
+    stty echo
+  fi
+  exit
+fi
+
+# Find the terminal program
+prg_term=
+for ((c=0; c < ${#TERM_PROGRAM[@]}; c++)); do
+  if command -v "${TERM_PROGRAM[$c]}" >/dev/null 2>&1; then
+    prg_term="${TERM_PROGRAM[$c]}"
+    break
+  fi
+done
+if [ -z $prg_term ]; then
+  echo "$0: xterm: command not found"
+  exit 1
+fi
+
+# Initialize resources
+if [ -n "$TERM_RESOURCES" ]; then
+  (for ((c=0; c < ${#TERM_RESOURCES[@]}; c++)); do
+    echo "${TERM_RESOURCES[$c]}"
+  done) | xrdb -merge -
+fi
+
+# Get extra options to pass to logwatcher
+extra_opts=
+if [ $opt_mute = 1 ]; then
+  extra_opts="-M"
+fi
+
+# Execute logwatcher again
+exec $prg_term $TERM_OPTS $0 -s $extra_opts $file_log

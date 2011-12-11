@@ -1,0 +1,318 @@
+# Swedish messagese for regex-markup.
+# Copyright © 2005 Oskar Liljeblad
+# This file is distributed under the same license as microdc.
+#
+# Some messages may have been copied from the translations of GNU Core
+# Utilities and GNU C Library, especially the messages in files in the
+# lib directory. Such translations are
+# Copyright © 1997, 2002, 2003, 2004 Free Software Foundation, Inc.
+# See the files of those projects for author information.
+#
+# Oskar Liljeblad <oskar@osk.mine.nu>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: regex-markup latest\n"
+"Report-Msgid-Bugs-To: oskar@osk.mine.nu\n"
+"POT-Creation-Date: 2005-05-22 16:33+0200\n"
+"PO-Revision-Date: 2005-05-04 12:33+0200\n"
+"Last-Translator: Oskar Liljeblad <oskar@osk.mine.nu>\n"
+"Language-Team: Swedish <sv@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/error.c:121
+msgid "Unknown system error"
+msgstr "Okänt systemfel"
+
+#: lib/getopt.c:551 lib/getopt.c:570
+#, c-format
+msgid "%s: option `%s' is ambiguous\n"
+msgstr "%s: flaggan \"%s\" är tvetydig\n"
+
+#: lib/getopt.c:603 lib/getopt.c:607
+#, c-format
+msgid "%s: option `--%s' doesn't allow an argument\n"
+msgstr "%s: flaggan \"--%s\" tar inget argument\n"
+
+#: lib/getopt.c:616 lib/getopt.c:621
+#, c-format
+msgid "%s: option `%c%s' doesn't allow an argument\n"
+msgstr "%s: flaggan \"%c%s\" tar inget argument\n"
+
+#: lib/getopt.c:667 lib/getopt.c:689 lib/getopt.c:1020 lib/getopt.c:1042
+#, c-format
+msgid "%s: option `%s' requires an argument\n"
+msgstr "%s: flaggan \"%s\" kräver ett argument\n"
+
+#: lib/getopt.c:727 lib/getopt.c:730
+#, c-format
+msgid "%s: unrecognized option `--%s'\n"
+msgstr "%s: okänd flagga \"--%s\"\n"
+
+#: lib/getopt.c:738 lib/getopt.c:741
+#, c-format
+msgid "%s: unrecognized option `%c%s'\n"
+msgstr "%s: okänd flagga \"%c%s\"\n"
+
+#: lib/getopt.c:796 lib/getopt.c:799
+#, c-format
+msgid "%s: illegal option -- %c\n"
+msgstr "%s: otillåten flagga -- %c\n"
+
+#: lib/getopt.c:805 lib/getopt.c:808
+#, c-format
+msgid "%s: invalid option -- %c\n"
+msgstr "%s: ogiltig flagga -- %c\n"
+
+#: lib/getopt.c:863 lib/getopt.c:882 lib/getopt.c:1095 lib/getopt.c:1116
+#, c-format
+msgid "%s: option requires an argument -- %c\n"
+msgstr "%s: flaggan kräver ett argument -- %c\n"
+
+#: lib/getopt.c:935 lib/getopt.c:954
+#, c-format
+msgid "%s: option `-W %s' is ambiguous\n"
+msgstr "%s: flaggan \"-W %s\" är tvetydig\n"
+
+#: lib/getopt.c:978 lib/getopt.c:999
+#, c-format
+msgid "%s: option `-W %s' doesn't allow an argument\n"
+msgstr "%s: flaggan \"-W %s\" tar inget argument\n"
+
+#: lib/regex.c:1302
+msgid "Success"
+msgstr "Lyckat"
+
+#: lib/regex.c:1305
+msgid "No match"
+msgstr "Ingen träff"
+
+#: lib/regex.c:1308
+msgid "Invalid regular expression"
+msgstr "Ogiltigt reguljärt uttryck"
+
+#: lib/regex.c:1311
+msgid "Invalid collation character"
+msgstr "Ogiltigt kollationeringstecken"
+
+#: lib/regex.c:1314
+msgid "Invalid character class name"
+msgstr "Ogiltigt teckenklassnamn"
+
+#: lib/regex.c:1317
+msgid "Trailing backslash"
+msgstr "Avslutande omvänt snedstreck"
+
+#: lib/regex.c:1320
+msgid "Invalid back reference"
+msgstr "Ogiltig bakåtreferens"
+
+#: lib/regex.c:1323
+msgid "Unmatched [ or [^"
+msgstr "Obalanserade [ eller [^"
+
+#: lib/regex.c:1326
+msgid "Unmatched ( or \\("
+msgstr "Obalanserade ( eller \\("
+
+#: lib/regex.c:1329
+msgid "Unmatched \\{"
+msgstr "Obalanserad \\{"
+
+#: lib/regex.c:1332
+msgid "Invalid content of \\{\\}"
+msgstr "Ogiltigt innehåll i \\{\\}"
+
+#: lib/regex.c:1335
+msgid "Invalid range end"
+msgstr "Ogiltigt intervallslut"
+
+#: lib/regex.c:1338
+msgid "Memory exhausted"
+msgstr "Minnet slut"
+
+#: lib/regex.c:1341
+msgid "Invalid preceding regular expression"
+msgstr "Ogiltigt föregående reguljärt uttryck"
+
+#: lib/regex.c:1344
+msgid "Premature end of regular expression"
+msgstr "För tidigt slut på reguljärt uttryck"
+
+#: lib/regex.c:1347
+msgid "Regular expression too big"
+msgstr "Reguljärt uttryck för stort"
+
+#: lib/regex.c:1350
+msgid "Unmatched ) or \\)"
+msgstr "Obalanserade ) eller \\)"
+
+#: lib/regex.c:7919
+msgid "No previous regular expression"
+msgstr "Inget föregående reguljärt uttryck"
+
+#: lib/xalloc-die.c:38
+msgid "memory exhausted"
+msgstr "minnet slut"
+
+#: src/cacheline.c:63
+#, c-format
+msgid "Usage: %s [OPTION]...\n"
+msgstr "Användning: %s [FLAGGA]...\n"
+
+#: src/cacheline.c:64
+msgid ""
+"Read from in and write to standard out, delaying newline until a complete\n"
+"line has been read.\n"
+msgstr ""
+"Läs från in och skriv till standardut, utan att skriva ut radslut tills\n"
+"en komplett rad tagits emot.\n"
+
+#: src/cacheline.c:66
+#, c-format
+msgid "      --help     display this help and exit\n"
+msgstr "      --help     display this help and exit\n"
+
+#: src/cacheline.c:67
+#, c-format
+msgid "      --version  output version information and exit\n"
+msgstr "      --version  output version information and exit\n"
+
+#: src/cacheline.c:68
+#, c-format
+msgid ""
+"\n"
+"Report bugs to <%s>.\n"
+msgstr ""
+"\n"
+"Rapportera fel till <%s>.\n"
+
+#: src/common/error.c:105
+#, c-format
+msgid ""
+"An internal error has occured. Please report this error by sending the\n"
+"output below to %s.\n"
+"\n"
+"Program: %s\n"
+"Version: %s\n"
+"Error: "
+msgstr ""
+"Ett internt fel har inträffat. Vänligen rapportera detta fel genom att\n"
+"skicka utmatningen nedan till %s.\n"
+"\n"
+"Program: %s\n"
+"Version: %s\n"
+"Fel: "
+
+#: src/common/iterator.c:45
+msgid "Called iterator_previous on iterator that doesn't support it"
+msgstr "Anropade iterator_previous på en iterator som inte stödjer det"
+
+#: src/common/iterator.c:53
+msgid "Called iterator_remove on iterator that doesn't support it"
+msgstr "Anropade iterator_remove på en iterator som inte stödjer det"
+
+#: src/common/llist.c:512
+msgid "Called iterator_remove before first iterator_next"
+msgstr "Anropade iterator_remove före första anrop till iterator_next"
+
+#: src/match.c:79
+msgid "subexpression index is out of range"
+msgstr "index för underuttryck är utanför intervall"
+
+#: src/parser.y:87
+#, c-format
+msgid "style `%s' already defined"
+msgstr "stilen \"%s\" är redan definerad"
+
+#: src/parser.y:90
+#, c-format
+msgid "macro `%s' already defined"
+msgstr "makrot \"%s\" är redan definerad"
+
+#: src/parser.y:94
+msgid "prepend rule already specifed"
+msgstr "prepend-regel redan angiven"
+
+#: src/parser.y:97
+msgid "append rule already specifed"
+msgstr "append-regel redan angiven"
+
+#: src/parser.y:111
+#, c-format
+msgid "no such style `%s'"
+msgstr "ingen sådan stil \"%s\""
+
+#: src/parser.y:144
+#, c-format
+msgid "no such macro or style `%s'"
+msgstr "inget sådant makro eller sådan stil \"%s\""
+
+#: src/parser.y:191 src/parser.y:198 src/parser.y:203 src/parser.y:210
+#: src/parser.y:218 src/parser.y:222
+#, c-format
+msgid "cannot open `%s': %s"
+msgstr "kan inte öppna \"%s\": %s"
+
+#: src/remark.c:86
+#, c-format
+msgid ""
+"Usage: %s [OPTION]... FILE [TEXT]\n"
+"Read lines of text from standard in (or use TEXT as input string), "
+"highlight\n"
+"according to rules defined in FILE, and print to standard out.\n"
+"\n"
+"  -p, --prepend=STRING       string to prepend to all split lines (except "
+"last)\n"
+"  -a, --append=STRING        string to append to all split lines (except "
+"first)\n"
+"  -r, --retain=COUNT         copy characters from first line to wrapped "
+"ones\n"
+"  -w, --width=COLUMNS        wrapping width\n"
+"  -f, --wrap=TYPE            specifies wrapping type (word/char/none).\n"
+"      --help                 display this help and exit\n"
+"      --version              output version information and exit\n"
+"\n"
+"Report bugs to <%s>.\n"
+msgstr ""
+"Användning: %s [FLAGGA]... FIL [TEXT]\n"
+"Läs rader av text från standard in (eller använd TEXT som indata), färgsätt "
+"enligt regler definerade i FIL, och skriv till standard ut.\n"
+"\n"
+"  -p, --prepend=STRÄNG       sträng att lägga till före alla delade rader\n"
+"                             (utom den sista)  -a, --append=STRÄNG        "
+"sträng att lägga till efter alla delade rader\n"
+"                             (utom den första)  -r, --retain=ANTAL         "
+"kopiera tecken från första rad till brutna rader\n"
+"  -w, --width=KOLUMNER       brytningsbredd\n"
+"  -f, --wrap=TYP             anger brytningstyp (word/char/none).\n"
+"      --help                 visa denna hjälptext och avsluta\n"
+"      --version              visa versionsinformation och avsluta\n"
+"\n"
+"Rapportera fel till <%s>.\n"
+
+#: src/remark.c:149
+#, c-format
+msgid "invalid retain value: %s"
+msgstr "ogiltig retain-värde: %s"
+
+#: src/remark.c:153
+#, c-format
+msgid "invalid width: %s"
+msgstr "ogiltig bredd: %s"
+
+#: src/remark.c:157
+#, c-format
+msgid "invalid wrapping type: %s"
+msgstr "ogiltig brytningstyp: %s"
+
+#: src/remark.c:177
+msgid "retain, append and prepend too long"
+msgstr "retain-, append- och prepend-texter är för långa"
+
+#: src/remark.c:201
+msgid "cannot read from standard in"
+msgstr "kan inte läsa från standard in"

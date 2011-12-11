@@ -1,0 +1,77 @@
+2005-05-22: regex-markup 0.10.0 released.
+  Localization support added.
+  Use gnulib for improved compatibility.
+  Only use lstat64 when available (reported by Michal Fojtik).
+  Tested on FreeBSD 4.10 (thanks to Michal Fojtik).
+  Update manual pages, add copyright and bug reporting address.
+  Cleaned up RPM package spec file.
+  Added full GNU GPL header to source files and manual pages.
+  Support --help and --version in cacheline.
+  Lexer code now includes config.h before everything else.
+
+2003-04-11: regex-markup 0.9.0 released.
+  Implemented new command 'set', to simplify substitution constructs.
+  Upgraded to autoconf 2.57 and automake 1.7.3.
+  Fixed bug that would cause remark to die with "cannot allocate memory"
+  when using $n where n is out of range in substitution rules.
+  Added new testsuites bug05, e82, e83, e84, e85, e86.
+  Clarified README about rule format location.
+  Never ignore ctrl+c/SIGINT - I don't remember the benefit of ignoring it
+  in the first place. If someone knows, please mail me. :)
+
+2002-01-06: regex-markup 0.8.0 released.
+  gcc 2.95 is now required to compile regex-markup.
+  Fixed a bug with /(..)*/ matches that would cause regex-markup to
+  highlight incorrectly or die ("Cannot allocate memory").
+  Fixed a bug in s/../../ rules that would produce wrong output.
+  Added example rules for make.
+  Improved syslog highlighting rules.
+
+2001-12-21: regex-markup 0.7.0 released.
+  Added section about common problems to the README file.
+  Remark now also looks in $HOME/.remark and /usr/share/regex-markup for
+  rule files.
+  The example rule files are installed in /usr/share/regex-markup by
+  default.
+  Added files for making an RPM package of regex-markup.
+
+2001-12-19: regex-markup 0.6.0 released.
+  Cleaned up code to reduce unnecessary memory allocations.
+  Added new example rules for diff.
+  Rewrote the cacheline program has in C.
+  Fixed how escaped characters are dealt with in substitution strings.
+  Improved terminal width detection in logwatcher.
+
+2001-12-17: regex-markup 0.5.0 released.
+  Almost all code has been rewritten and improved, resulting in more
+  features, faster execution, cleaner and less buggy code.
+  Implemented line wrapping in remark (previously this was done
+  separately). As a result of this, foldlog was removed and logwatcher
+  updated to use the build-in wrapping.
+  Added a bunch of test cases (to a total of 558 tests).
+
+2001-12-03: regex-markup 0.4.0 released.
+  Began support for Cygwin by adding compatibility files from fileutils.
+  Updated copyright.
+  Added a new program "foldlog" to fold syslog lines.
+  Added a testsuite for foldlog.
+  Added missing file bison.simple.fixed (needed for complete rebuild).
+  Improved error messages.
+  Improved the syslog highlighter (logwatcher).
+  Improved memory management (don't allocate and free as much memory).
+  Fixed a bug in the parsing code that would cause freed memory to be read.
+
+2001-10-28: regex-markup 0.3.0 released.
+  Updated manual page.
+  Fixed a substitution bug that would cause segmentation violation.
+  Fixed style bugs causing incorrect highlighting.
+  Better signal handling.
+  Improved substitution with support for $`, $&, and $' variables.
+
+2001-10-25: regex-markup 0.2.0 released.
+  Added manual pages for remark.
+  Added files for making a regex-markup Debian package.
+  The author has changed email-address to oskar@osk.mine.nu.
+
+2001-08-13: regex-markup 0.1.0 released.
+  First public release.

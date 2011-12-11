@@ -1,0 +1,6 @@
+# case 2a
+style s1 { pre "{" post "}" }
+style s2 { pre "(" post ")" }
+
+/foobar/ s1
+/foo/ s2

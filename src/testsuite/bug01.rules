@@ -1,0 +1,6 @@
+style bold { pre "{" post "}" }
+
+/(.*)/ {
+    s/CRONEN/cron/
+    bold
+}

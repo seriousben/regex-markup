@@ -1,0 +1,9 @@
+# Testcase 1 for empty styles (those having so=eo)
+
+style s0 { pre "<" post ">" }
+style s1 { pre "(" post ")" }
+style s2 { pre "{" post "}" }
+
+/alpha/ s0
+/alpha/ s1
+/ha()/ 1 s2
