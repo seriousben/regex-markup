@@ -1,0 +1,11 @@
+CMakeCache.txt
+CMakeFiles
+Makefile
+Makefile.in
+cmake_install.cmake
+install_manifest.txt
+.deps
+POTFILES
+config*
+regex-markup.spec
+stamp-h1
