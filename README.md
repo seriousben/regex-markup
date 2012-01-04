@@ -1,4 +1,4 @@
-regex-markup
+regex-markup <img src="http://stillmaintained.com/dreur/regex-markup.png"/>
 ============
 
 regular expression-based text markup
